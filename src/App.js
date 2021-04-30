@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify'
+import { authContext } from './context/AuthContext';
+import { decodeToken, getToken } from './utils/token';
 
-function App() {
+import Auth from './views/Auth';
+import Navigation from './routes/Navigation';
+
+const App = () => {
+  const {auth,setUser} = useContext(authContext)
+
+  useEffect(() => {
+    const token = getToken();
+
+    if(!token){
+      setUser(null)
+    } else {
+      setUser(decodeToken(token));
+    }
+  }, []);
+
+  if(auth === undefined) return null;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {!auth ? <Auth /> : <Navigation />}
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 }
 

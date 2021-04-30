@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'semantic-ui-css/semantic.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+import './index.scss';
+import client from './config/apollo';
+import { ApolloProvider } from '@apollo/client'
+import AuthProvider from './context/AuthContext';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <ApolloProvider client={client}>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ApolloProvider>,
   document.getElementById('root')
 );
 

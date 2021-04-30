@@ -1,0 +1,14 @@
+@import './../../../scss/index.scss';
+
+.register-form-title {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-form-container {
+    input {
+        padding: 13px 15px !important;
+        background: #f9f9f9 !important;
+    }
+}
